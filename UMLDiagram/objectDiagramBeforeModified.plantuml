@@ -1,0 +1,289 @@
+@startuml
+title Object Diagram After loadFromFile("test.txt") - BEFORE editCharacterProperties()
+left to right direction
+' ===========================================================
+'   TESTDOCUMENT SECTION
+' ===========================================================
+package "testDocument Objects" {
+    object "<u>testDocument:Document</u>" as doc1
+    object "<u>characters:ArrayList</u>" as list1
+    object "<u>propertiesFactory:CharacterPropertiesFactory</u>" as factory1
+    map "<u>flyweights:HashMap</u>" as map1 {
+        Arial16Black => cp1
+        Arial14Black => cp2
+        Verdana18Blue => cp3
+        Verdana12Red => cp4
+    }
+    
+    ' Character objects for testDocument
+    object "<u>char0:Character</u>" as c1_0 {
+        character = 'H'
+    }
+    object "<u>char1:Character</u>" as c1_1 {
+        character = 'e'
+    }
+    object "<u>char2:Character</u>" as c1_2 {
+        character = 'l'
+    }
+    object "<u>char3:Character</u>" as c1_3 {
+        character = 'l'
+    }
+    object "<u>char4:Character</u>" as c1_4 {
+        character = 'o'
+    }
+    object "<u>char5:Character</u>" as c1_5 {
+        character = 'W'
+    }
+    object "<u>char6:Character</u>" as c1_6 {
+        character = 'o'
+    }
+    object "<u>char7:Character</u>" as c1_7 {
+        character = 'r'
+    }
+    object "<u>char8:Character</u>" as c1_8 {
+        character = 'l'
+    }
+    object "<u>char9:Character</u>" as c1_9 {
+        character = 'd'
+    }
+    object "<u>char10:Character</u>" as c1_10 {
+        character = 'C'
+    }
+    object "<u>char11:Character</u>" as c1_11 {
+        character = 'S'
+    }
+    object "<u>char12:Character</u>" as c1_12 {
+        character = '5'
+    }
+    object "<u>char13:Character</u>" as c1_13 {
+        character = '8'
+    }
+    object "<u>char14:Character</u>" as c1_14 {
+        character = '0'
+    }
+    object "<u>char15:Character</u>" as c1_15 {
+        character = '0'
+    }
+    
+    ' CharacterProperties flyweight objects for testDocument
+    object "<u>cp1:CharacterProperties</u>" as cp1 {
+        font = "Arial"
+        color = "Black"
+        size = 16
+    }
+    object "<u>cp2:CharacterProperties</u>" as cp2 {
+        font = "Arial"
+        color = "Black"
+        size = 14
+    }
+    object "<u>cp3:CharacterProperties</u>" as cp3 {
+        font = "Verdana"
+        color = "Blue"
+        size = 18
+    }
+    object "<u>cp4:CharacterProperties</u>" as cp4 {
+        font = "Verdana"
+        color = "Red"
+        size = 12
+    }
+    
+    ' Relationships for testDocument
+    doc1 --> list1 : characters
+    doc1 --> factory1 : propertiesFactory
+    factory1 --> map1 : flyweights
+    
+    list1 --> c1_0
+    list1 --> c1_1
+    list1 --> c1_2
+    list1 --> c1_3
+    list1 --> c1_4
+    list1 --> c1_5
+    list1 --> c1_6
+    list1 --> c1_7
+    list1 --> c1_8
+    list1 --> c1_9
+    list1 --> c1_10
+    list1 --> c1_11
+    list1 --> c1_12
+    list1 --> c1_13
+    list1 --> c1_14
+    list1 --> c1_15
+    
+    ' Character to CharacterProperties relationships (showing flyweight sharing)
+    c1_0 --> cp1 : characterProperty
+    c1_5 --> cp1 : characterProperty
+    
+    c1_1 --> cp2 : characterProperty
+    c1_2 --> cp2 : characterProperty
+    c1_3 --> cp2 : characterProperty
+    c1_4 --> cp2 : characterProperty
+    c1_6 --> cp2 : characterProperty
+    c1_7 --> cp2 : characterProperty
+    c1_8 --> cp2 : characterProperty
+    c1_9 --> cp2 : characterProperty
+    
+    c1_10 --> cp3 : characterProperty
+    c1_11 --> cp3 : characterProperty
+    
+    c1_12 --> cp4 : characterProperty
+    c1_13 --> cp4 : characterProperty
+    c1_14 --> cp4 : characterProperty
+    c1_15 --> cp4 : characterProperty
+}
+
+' ===========================================================
+'   READDOCUMENTVERIFY SECTION - BEFORE EDITS
+' ===========================================================
+package "readDocumentVerify Objects" {
+    object "<u>readDocumentVerify:Document</u>" as doc2
+    object "<u>characters:ArrayList</u>" as list2
+    object "<u>propertiesFactory:CharacterPropertiesFactory</u>" as factory2
+    map "<u>flyweights:HashMap</u>" as map2 {
+        Arial16Black => cp5
+        Arial14Black => cp6
+        Verdana18Blue => cp7
+        Verdana12Red => cp8
+    }
+    
+    ' Character objects for readDocumentVerify (after loading, BEFORE editing)
+    object "<u>char0:Character</u>" as c2_0 {
+        character = 'H'
+    }
+    object "<u>char1:Character</u>" as c2_1 {
+        character = 'e'
+    }
+    object "<u>char2:Character</u>" as c2_2 {
+        character = 'l'
+    }
+    object "<u>char3:Character</u>" as c2_3 {
+        character = 'l'
+    }
+    object "<u>char4:Character</u>" as c2_4 {
+        character = 'o'
+    }
+    object "<u>char5:Character</u>" as c2_5 {
+        character = 'W'
+    }
+    object "<u>char6:Character</u>" as c2_6 {
+        character = 'o'
+    }
+    object "<u>char7:Character</u>" as c2_7 {
+        character = 'r'
+    }
+    object "<u>char8:Character</u>" as c2_8 {
+        character = 'l'
+    }
+    object "<u>char9:Character</u>" as c2_9 {
+        character = 'd'
+    }
+    object "<u>char10:Character</u>" as c2_10 {
+        character = 'C'
+    }
+    object "<u>char11:Character</u>" as c2_11 {
+        character = 'S'
+    }
+    object "<u>char12:Character</u>" as c2_12 {
+        character = '5'
+    }
+    object "<u>char13:Character</u>" as c2_13 {
+        character = '8'
+    }
+    object "<u>char14:Character</u>" as c2_14 {
+        character = '0'
+    }
+    object "<u>char15:Character</u>" as c2_15 {
+        character = '0'
+    }
+    
+    ' CharacterProperties flyweight objects for readDocumentVerify (4 total, same as original)
+    object "<u>cp5:CharacterProperties</u>" as cp5 {
+        font = "Arial"
+        color = "Black"
+        size = 16
+    }
+    object "<u>cp6:CharacterProperties</u>" as cp6 {
+        font = "Arial"
+        color = "Black"
+        size = 14
+    }
+    object "<u>cp7:CharacterProperties</u>" as cp7 {
+        font = "Verdana"
+        color = "Blue"
+        size = 18
+    }
+    object "<u>cp8:CharacterProperties</u>" as cp8 {
+        font = "Verdana"
+        color = "Red"
+        size = 12
+    }
+    
+    ' Relationships for readDocumentVerify
+    doc2 --> list2 : characters
+    doc2 --> factory2 : propertiesFactory
+    factory2 --> map2 : flyweights
+    
+    list2 --> c2_0
+    list2 --> c2_1
+    list2 --> c2_2
+    list2 --> c2_3
+    list2 --> c2_4
+    list2 --> c2_5
+    list2 --> c2_6
+    list2 --> c2_7
+    list2 --> c2_8
+    list2 --> c2_9
+    list2 --> c2_10
+    list2 --> c2_11
+    list2 --> c2_12
+    list2 --> c2_13
+    list2 --> c2_14
+    list2 --> c2_15
+    
+    ' Character to CharacterProperties relationships (BEFORE edits - same as testDocument)
+    c2_0 --> cp5 : characterProperty
+    c2_5 --> cp5 : characterProperty
+    
+    c2_1 --> cp6 : characterProperty
+    c2_2 --> cp6 : characterProperty
+    c2_3 --> cp6 : characterProperty
+    c2_4 --> cp6 : characterProperty
+    c2_6 --> cp6 : characterProperty
+    c2_7 --> cp6 : characterProperty
+    c2_8 --> cp6 : characterProperty
+    c2_9 --> cp6 : characterProperty
+    
+    c2_10 --> cp7 : characterProperty
+    c2_11 --> cp7 : characterProperty
+    
+    c2_12 --> cp8 : characterProperty
+    c2_13 --> cp8 : characterProperty
+    c2_14 --> cp8 : characterProperty
+    c2_15 --> cp8 : characterProperty
+}
+
+note right of doc1
+  testDocument after saveToFile("test.txt")
+  Total flyweight objects: 4
+  
+  Flyweight sharing:
+  • cp1 (Arial,Black,16): 2 chars (H, W)
+  • cp2 (Arial,Black,14): 8 chars (e,l,l,o,o,r,l,d)
+  • cp3 (Verdana,Blue,18): 2 chars (C,S)
+  • cp4 (Verdana,Red,12): 4 chars (5,8,0,0)
+end note
+
+note right of doc2 #lightblue
+readDocumentVerify after loadFromFile("test.txt")
+  **BEFORE any editCharacterProperties() calls**
+  Total flyweight objects: 4
+  
+  State is identical to testDocument but with
+  separate Document and CharacterProperties instances.
+  
+  Flyweight sharing:
+  • cp5 (Arial,Black,16): 2 chars (H, W)
+  • cp6 (Arial,Black,14): 8 chars (e,l,l,o,o,r,l,d)
+  • cp7 (Verdana,Blue,18): 2 chars (C,S)
+  • cp8 (Verdana,Red,12): 4 chars (5,8,0,0)
+endnote
+@enduml

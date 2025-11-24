@@ -1,0 +1,56 @@
+@startuml
+
+class Character {
+    - char character
+    - CharacterProperties characterProperty
+    + Character(char, CharacterProperties)
+    + setCharacter(char)
+    + setCharacterProperty(CharacterProperties)
+    + getCharacter() : char
+    + getFont() : String
+    + getColor() : String
+    + getSize() : int
+}
+
+class CharacterProperties {
+    - final String font
+    - final String color
+    - final int size
+    + CharacterProperties(String, String, int)
+    + getFont() : String
+    + getColor() : String
+    + getSize() : int
+}
+
+class CharacterPropertiesFactory {
+    - Map<String, CharacterProperties> flyweights
+    + setAndRetrieveFlyweightCharacterProperties(String, String, int) : CharacterProperties
+    + sizeOfMap() : int
+}
+
+class Document {
+    - List<Character> characters
+    - CharacterPropertiesFactory propertiesFactory
+    + addCharacter(char, String, String, int)
+    + editCharacterProperties(int, String, String, int)
+    + saveToFile(String)
+    + loadFromFile(String)
+}
+
+class Driver {
+    + main(String[])
+}
+
+' Document contains many Character
+Document "1" *-- "0..*" Character
+
+' Character has a flyweight CharacterProperties
+Character "1" --> "1" CharacterProperties
+
+' Document uses CharacterPropertiesFactory to manage flyweights
+Document "1" *-- "1" CharacterPropertiesFactory
+
+' Factory manages shared CharacterProperties flyweights
+CharacterPropertiesFactory "1" --> "0..*" CharacterProperties
+
+@enduml

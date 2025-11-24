@@ -1,0 +1,206 @@
+@startuml
+title Object Diagram - readDocumentVerify After editCharacterProperties() on H and W
+
+left to right direction
+
+object "readDocumentVerify:Document" as doc {
+}
+
+object "characters:ArrayList<Character>" as charList {
+    size = 16
+}
+
+object "propertiesFactory:CharacterPropertiesFactory" as factory {
+}
+
+map "flyweights:HashMap<String,CharacterProperties>" as flyweightMap {
+    Arial16Black => cp_arial16
+    Arial14Black => cp_arial14
+    Verdana18Blue => cp_verdana18
+    Verdana12Red => cp_verdana12
+    Calibri99Blue => cp_calibri99
+}
+
+object "char[0]:Character" as char0 {
+    character = 'H'
+}
+
+object "char[1]:Character" as char1 {
+    character = 'e'
+}
+
+object "char[2]:Character" as char2 {
+    character = 'l'
+}
+
+object "char[3]:Character" as char3 {
+    character = 'l'
+}
+
+object "char[4]:Character" as char4 {
+    character = 'o'
+}
+
+object "char[5]:Character" as char5 {
+    character = 'W'
+}
+
+object "char[6]:Character" as char6 {
+    character = 'o'
+}
+
+object "char[7]:Character" as char7 {
+    character = 'r'
+}
+
+object "char[8]:Character" as char8 {
+    character = 'l'
+}
+
+object "char[9]:Character" as char9 {
+    character = 'd'
+}
+
+object "char[10]:Character" as char10 {
+    character = 'C'
+}
+
+object "char[11]:Character" as char11 {
+    character = 'S'
+}
+
+object "char[12]:Character" as char12 {
+    character = '5'
+}
+
+object "char[13]:Character" as char13 {
+    character = '8'
+}
+
+object "char[14]:Character" as char14 {
+    character = '0'
+}
+
+object "char[15]:Character" as char15 {
+    character = '0'
+}
+
+object "cp_arial16:CharacterProperties" as cp_arial16 {
+    font = "Arial"
+    color = "Black"
+    size = 16
+}
+
+object "cp_arial14:CharacterProperties" as cp_arial14 {
+    font = "Arial"
+    color = "Black"
+    size = 14
+}
+
+object "cp_verdana18:CharacterProperties" as cp_verdana18 {
+    font = "Verdana"
+    color = "Blue"
+    size = 18
+}
+
+object "cp_verdana12:CharacterProperties" as cp_verdana12 {
+    font = "Verdana"
+    color = "Red"
+    size = 12
+}
+
+object "cp_calibri99:CharacterProperties" as cp_calibri99 {
+    font = "Calibri"
+    color = "Blue"
+    size = 99
+}
+
+doc --> charList : characters
+doc --> factory : propertiesFactory
+factory --> flyweightMap : flyweights
+
+charList --> char0 : [0]
+charList --> char1 : [1]
+charList --> char2 : [2]
+charList --> char3 : [3]
+charList --> char4 : [4]
+charList --> char5 : [5]
+charList --> char6 : [6]
+charList --> char7 : [7]
+charList --> char8 : [8]
+charList --> char9 : [9]
+charList --> char10 : [10]
+charList --> char11 : [11]
+charList --> char12 : [12]
+charList --> char13 : [13]
+charList --> char14 : [14]
+charList --> char15 : [15]
+
+' H and W now point to NEW Calibri99Blue flyweight (MODIFIED)
+char0 --> cp_calibri99 : characterProperty
+char5 --> cp_calibri99 : characterProperty
+
+' e, l, l, o, o, r, l, d share Arial14Black
+char1 --> cp_arial14 : characterProperty
+char2 --> cp_arial14 : characterProperty
+char3 --> cp_arial14 : characterProperty
+char4 --> cp_arial14 : characterProperty
+char6 --> cp_arial14 : characterProperty
+char7 --> cp_arial14 : characterProperty
+char8 --> cp_arial14 : characterProperty
+char9 --> cp_arial14 : characterProperty
+
+' C and S share Verdana18Blue
+char10 --> cp_verdana18 : characterProperty
+char11 --> cp_verdana18 : characterProperty
+
+' 5, 8, 0, 0 share Verdana12Red
+char12 --> cp_verdana12 : characterProperty
+char13 --> cp_verdana12 : characterProperty
+char14 --> cp_verdana12 : characterProperty
+char15 --> cp_verdana12 : characterProperty
+
+note top of cp_calibri99 #lightgreen
+  **NEW FLYWEIGHT CREATED**
+  Created by editCharacterProperties(0, "Calibri", "Blue", 99)
+  and editCharacterProperties(5, "Calibri", "Blue", 99)
+  
+  Both 'H' and 'W' now share this new flyweight
+end note
+
+note bottom of cp_arial16 #lightcoral
+  **ORPHANED FLYWEIGHT**
+  No Character objects reference this anymore
+  after H and W were modified.
+  
+  Still exists in HashMap but unused.
+  Would need garbage collection or manual cleanup.
+end note
+
+note right of doc
+  **Document State Summary:**
+  
+  Total Characters: 16
+  Total Flyweights in Map: 5
+  
+  Flyweight Usage:
+  • cp_calibri99: 2 chars (H, W) - NEWLY CREATED
+  • cp_arial14: 8 chars (e,l,l,o,o,r,l,d)
+  • cp_verdana18: 2 chars (C,S)
+  • cp_verdana12: 4 chars (5,8,0,0)
+  • cp_arial16: 0 chars - ORPHANED
+  
+  Memory saved: 16 Character objects share
+  only 5 CharacterProperties objects
+end note
+
+note left of flyweightMap
+  **HashMap Key Construction:**
+  key = font + size + color
+  
+  Examples:
+  "Calibri" + 99 + "Blue" = "Calibri99Blue"
+  "Arial" + 14 + "Black" = "Arial14Black"
+end note
+
+@enduml
