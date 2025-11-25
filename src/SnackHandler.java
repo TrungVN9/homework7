@@ -1,4 +1,4 @@
-package com.vendingmachine;
+package com.vendingmachine.src;
 
 public class SnackHandler extends SnackDispenseHandler {
     private String snackName;
@@ -33,7 +33,8 @@ public class SnackHandler extends SnackDispenseHandler {
         } else if (nextHandler != null) {
             nextHandler.handleRequest(machine);
         } else {
-            System.out.printf("Error: No handler found for %s. This should not happen.%n", machine.getSelectedSnack().getName());
+            System.out.printf("Error: No handler found for %s. This should not happen.%n",
+                    machine.getSelectedSnack().getName());
             System.out.printf("Returning $%.2f.%n", machine.getMoneyInserted());
         }
     }

@@ -1,4 +1,4 @@
-package com.vendingmachine;
+package com.vendingmachine.src;
 
 import java.util.Map;
 

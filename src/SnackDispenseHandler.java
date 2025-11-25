@@ -1,4 +1,4 @@
-package com.vendingmachine;
+package com.vendingmachine.src;
 
 public abstract class SnackDispenseHandler {
     protected SnackDispenseHandler nextHandler;

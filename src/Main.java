@@ -1,4 +1,4 @@
-package com.vendingmachine;
+package com.vendingmachine.src;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class Main {
         snacks.put("Doritos", new Snack("Doritos", 1.75, 4));
         snacks.put("KitKat", new Snack("KitKat", 1.25, 6));
         snacks.put("Snickers", new Snack("Snickers", 1.25, 1));
-        
+
         System.out.println("6 Snacks are successfully created! ");
         // Set up Chain of Responsibility in reverse order
         SnackDispenseHandler snickersHandler = new SnackHandler("Snickers", null);
@@ -49,7 +49,7 @@ public class Main {
         machine.selectSnack("Snickers");
         machine.insertMoney(1.25);
         machine.displayInventory();
-        
+
         System.out.println("\n>>> TEST 5: Successful purchase of Coke <<<");
         machine.selectSnack("Coke");
         machine.insertMoney(1.50);
