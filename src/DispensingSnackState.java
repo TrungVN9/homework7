@@ -1,5 +1,3 @@
-package com.vendingmachine.src;
-
 public class DispensingSnackState implements StateOfVendingMachine {
     @Override
     public void selectSnack(VendingMachine machine, String snackName) {

@@ -1,5 +1,3 @@
-package com.vendingmachine.src;
-
 public class SnackHandler extends SnackDispenseHandler {
     private String snackName;
 

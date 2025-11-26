@@ -1,5 +1,3 @@
-package com.vendingmachine.src;
-
 public interface StateOfVendingMachine {
     void selectSnack(VendingMachine machine, String snackName);
 

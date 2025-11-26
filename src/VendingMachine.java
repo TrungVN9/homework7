@@ -1,5 +1,3 @@
-package com.vendingmachine.src;
-
 import java.util.Map;
 
 public class VendingMachine {

@@ -1,5 +1,3 @@
-package com.vendingmachine.src;
-
 public class Snack {
     private String name;
     private double price;
